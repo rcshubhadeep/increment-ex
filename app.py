@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 import dbops
 import string
+import logging
+from logging.handlers import RotatingFileHandler
 
 
 app = Flask(__name__)
@@ -36,8 +38,16 @@ def set_key_value(inc_key):
         result, status_code = dbops.set_val(data["key"], data["value"], app)
         return jsonify(result), status_code
     except Exception, ex:  # A BadRequest will be generated if get_json fails
+        app.logger.error("Error Happened in set_key_val : ", ex)
         return jsonify({"value": -1}), 404
 
 
 if __name__ == "__main__":
+    formatter = logging.Formatter(
+        "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
+    handler = RotatingFileHandler(
+        app.config["LOG_FILENAME"], maxBytes=10000000, backupCount=5)
+    handler.setLevel(logging.INFO)
+    handler.setFormatter(formatter)
+    app.logger.addHandler(handler)
     app.run(debug=app.config["DEBUG"], host='0.0.0.0')

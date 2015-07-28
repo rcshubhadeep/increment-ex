@@ -14,6 +14,7 @@ def get_db_details(appconfig):
 def inc_value(inc_key, app):
     collection = get_db_details(app.config)
     if collection == None:
+        app.logger.error("Collection is None inc_value")
         return {"value": -1}, 400
     row = collection.find_one({"key": inc_key})
     if not row:
@@ -28,6 +29,7 @@ def inc_value(inc_key, app):
 def set_val(inc_key, value, app):
     collection = get_db_details(app.config)
     if collection == None:
+        app.logger.error("Collection is None set_val")
         return {"value": -1}, 404
     row = collection.find_one({"key": inc_key})
     if not row:
@@ -35,4 +37,4 @@ def set_val(inc_key, value, app):
         return {"value": 1}, 201
     else:
         collection.update({"key": inc_key, }, {"$set": {"val": value}})
-        return {"value": row["val"]}, 200
+        return {"value": value}, 200
