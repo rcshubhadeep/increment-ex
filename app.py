@@ -1,9 +1,43 @@
-from flask import Flask
+from flask import Flask, jsonify, request
+import dbops
+import string
+
 
 app = Flask(__name__)
+app.config.from_object("settings_default")
+try:
+    # Because we can override the debug / dev config
+    app.config.from_envvar("PRODUCTION_CONFIG")
+except RuntimeError:
+    pass
+
+
 @app.route("/")
 def hello():
-	return "Flask inside Docker!!"
+    """This is our root route. Returns the value route path"""
+    return jsonify({"value_url": "/value"})
+
+
+@app.route("/value/<inc_key>", methods=["GET"])
+def increment_key_value(inc_key):
+    """Get an incremented value on calling this."""
+    if not all(c in string.printable for c in inc_key):
+        return jsonify({"value": -1}), 404
+
+    result, status_code = dbops.inc_value(inc_key, app)
+    return jsonify(result), status_code
+
+
+@app.route("/value/<inc_key>", methods=["POST"])
+def set_key_value(inc_key):
+    """Set a key value when invoked by POST"""
+    try:
+        data = request.get_json(force=True)
+        result, status_code = dbops.set_val(data["key"], data["value"], app)
+        return jsonify(result), status_code
+    except Exception, ex:  # A BadRequest will be generated if get_json fails
+        return jsonify({"value": -1}), 404
+
 
 if __name__ == "__main__":
-	app.run(debug=True,host='0.0.0.0')
+    app.run(debug=app.config["DEBUG"], host='0.0.0.0')
