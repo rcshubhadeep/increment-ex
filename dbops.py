@@ -14,16 +14,17 @@ def get_db_details(appconfig, applogger):
 
 
 def inc_value(inc_key, app):
-    collection = get_db_details(app.config, app.logger)
+    collection = get_db_details(app.config, app.logger) ## Init the DB
     if collection == None:
         app.logger.error("Collection is None inc_value")
         return {"value": -1}, 400
     try:
-        row = collection.find_one({"key": inc_key})
+        row = collection.find_one({"key": inc_key}) ## try to find the record
         if not row:
             collection.insert_one({"key": inc_key, "val": 1})
             return {"value": 1}, 201
         else:
+            ## If found. Update. Use $inc
             collection.update({"key": inc_key}, {"$inc": {"val": 1}})
             # One fetch less but same effect.
             return {"value": row["val"] + 1}, 200
@@ -33,16 +34,17 @@ def inc_value(inc_key, app):
 
 
 def set_val(inc_key, value, app):
-    collection = get_db_details(app.config, app.logger)
+    collection = get_db_details(app.config, app.logger) ## Init the DB
     if collection == None:
         app.logger.error("Collection is None set_val")
         return {"value": -1}, 404
     try:
-        row = collection.find_one({"key": inc_key})
+        row = collection.find_one({"key": inc_key}) ## Try to find the record
         if not row:
             collection.insert_one({"key": inc_key, "val": 1})
             return {"value": 1}, 201
         else:
+            ## If record found. Update
             collection.update({"key": inc_key, }, {"$set": {"val": value}})
             return {"value": value}, 200
     except Exception, ex:
