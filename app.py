@@ -38,7 +38,7 @@ def set_key_value(inc_key):
         result, status_code = dbops.set_val(data["key"], data["value"], app)
         return jsonify(result), status_code
     except Exception, ex:  # A BadRequest will be generated if get_json fails
-        app.logger.error("Error Happened in set_key_val : ", ex)
+        app.logger.error("Error Happened in set_key_val : ")
         return jsonify({"value": -1}), 404
 
 
