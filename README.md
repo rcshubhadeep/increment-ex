@@ -45,9 +45,9 @@ There are two ways to make it run
 
 ## Usage -
 
-Whether you are using Docker or normal way, always, if running, the application will be accessible via http://localhost:5000
+Whether you are using Docker or normal way, always, if running, the application will be accessible via http://<container_ip>:5000
 
-For the increment API to work please access http://localhost:5000/mykey   (*Please note that you can use any value at the place 'mykey' to set any key*)
+For the increment API to work please access http://<container_ip>:5000/mykey   (*Please note that you can use any value at the place 'mykey' to set any key*) (*Please also note that if you are using method 2 then do use 127.0.0.1 in place of container_ip*)
   
 ## Caution -  
 
