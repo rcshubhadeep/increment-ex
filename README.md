@@ -7,7 +7,7 @@ There are two ways to make it run
   
   a) Make sure that you have both the docker and docker-compose command running.
   
-  b) Clone the repo
+  b) Clone the repo and cd to the repo
   
   c) Run - 
   
@@ -33,14 +33,14 @@ There are two ways to make it run
   
       USING_DOCKER = False
       
-  e) Make sure you have an instance of MongoDB [https://www.mongodb.org/] running and ready to be used also please check the host name, port number etc and if necessary change them in the settings_default.py file.
+  e) Make sure you have an instance of MongoDB [https://www.mongodb.org/] running and ready to be used. Also please check the host name, port number etc and if necessary change them in the settings_default.py file.
   
   f) Run 
   
       ./insall.sh
       ./run.sh
       
-  g) If everything goes right then the application is ready and serving at port 5000. 
+  g) If everything goes right then the application is ready and serving at port 5000. (* ./install.sh is an one time command. Use it only once. Whereas whenever you want to run the app use ./run.sh and to stop it simply use Ctrl-C *)
   
 
 ## Usage -
