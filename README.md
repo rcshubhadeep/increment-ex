@@ -17,7 +17,7 @@ There are two ways to make it run
   
   d) That's it!! (Of course you have to connect to it via port 5000)
 
-2.> If you are not having those two things then OR you do not want to use them OR you are having a trouble to set it up then
+2.> If you are not having those two things OR you do not want to use them OR you are having a trouble to set it up then
 
   a) Make sure you have Python and virtualenv installed and working
   
