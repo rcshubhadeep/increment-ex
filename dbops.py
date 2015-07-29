@@ -17,7 +17,7 @@ def get_db_details(appconfig, applogger):
         try:
             client = MongoClient(os.environ[
                                  'INCREMENTEX_DB_1_PORT_27017_TCP_ADDR'], 27017,
-                                  serverSelectionTimeoutMS=1500)
+                                 serverSelectionTimeoutMS=1500)
             db = client[appconfig["DB_NAME"]]
             collection = db[appconfig["COLLECTION_NAME"]]
             return collection
