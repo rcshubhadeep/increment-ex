@@ -4,3 +4,4 @@ SERVER = "localhost"
 PORT = 27017
 DEBUG = True
 LOG_FILENAME = "app.log"
+USING_DOCKER = True

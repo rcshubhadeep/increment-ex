@@ -1,0 +1,6 @@
+.git
+.gitignore
+*.pyc
+venv
+run.sh
+install.sh
