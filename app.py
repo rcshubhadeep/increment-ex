@@ -35,6 +35,12 @@ def set_key_value(inc_key):
     """Set a key value when invoked by POST"""
     try:
         data = request.get_json(force=True)
+        if "value" not in data:
+            return jsonify({"value": -1})
+        if "key" not in data:
+            return jsonify({"value": -1})
+        if not isinstance(data["value"], (int, long)):
+            return jsonify({"value": -1})
         result, status_code = dbops.set_val(data["key"], data["value"], app)
         return jsonify(result), status_code
     except Exception, ex:  # A BadRequest will be generated if get_json fails
