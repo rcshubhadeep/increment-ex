@@ -1,6 +1,8 @@
 # increment-ex
 this is a test repo to show some functions
 
+This is just a test comment
+
 There are two ways to make it run
 
 1.> Using docker [https://www.docker.com/] and docker compose [https://docs.docker.com/compose/]. Steps are - 
